@@ -4,11 +4,11 @@ class UsersController < ApplicationController
         users = User.all
         render json: users
     end
-    
+
     def show
         user = User.find_by(id: session[:user_id])
         if user
-            render json: user
+            render json: user, status: :ok
         else
             render json: {error: 'User not found'}, status: :unauthorized
         end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
     end
-    
+
     private
 
     def render_unprocessable_entity(invalid)
